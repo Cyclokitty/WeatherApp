@@ -1,9 +1,29 @@
 const express = require('express');
 const hbs = require('hbs');
 const app = express();
+const fs = require('fs');
 
 hbs.registerPartials(__dirname + '/views/partials');
 app.set('view engine', 'hbs');
+
+// app.use to register Express middleware
+// next is used to tell Express when the middleware is done
+app.use((req, res, next) => {
+  let now = new Date().toString();
+  let log = `${now}: ${req.method} ${req.url}`;
+  console.log(log);
+  fs.appendFile('server.log', log + '\n', (err) => {
+    if(err) {
+      console.log('Unable to append to server.log');
+    }
+  });
+  next();
+});
+
+// app.use((req, res, next) => {
+//   res.render('maintenance.hbs');
+// });
+
 app.use(express.static(__dirname +'/public'));
 
 hbs.registerHelper('getCurrentYear', () => {
