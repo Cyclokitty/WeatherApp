@@ -5,7 +5,7 @@
     <title>The Weather</title>
   </head>
   <body>
-    <h1>{{pageTitle}}</h1>
+    {{> header}}
     <p>
       All about ME!
     </p>
@@ -13,10 +13,6 @@
       Yay me.
     </p>
 
-    <footer>
-      <p>
-        Copyright {{currentYear}}
-      </p>
-    </footer>
+    {{> footer}}
   </body>
 </html>
