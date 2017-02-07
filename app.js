@@ -2,11 +2,14 @@ const express = require('express');
 const hbs = require('hbs');
 const app = express();
 const fs = require('fs');
+const bodyParser = require('body-parser');
+const geocode = require('./geocode');
 
 const port = process.env.PORT || 3000;
 
 hbs.registerPartials(__dirname + '/views/partials');
 app.set('view engine', 'hbs');
+app.use(bodyParser.urlencoded({extended: true}));
 
 // app.use to register Express middleware
 // next is used to tell Express when the middleware is done
@@ -40,6 +43,17 @@ app.get('/', (req, res) => {
   res.render('home.hbs', {
     pageTitle: 'The Weather',
     welcomeMessage: 'Welcome to my home page.',
+  });
+});
+
+app.post('/', (req, res) => {
+  const city = req.body.city;
+  geocode.geocodeAddress(city, (err, results) => {
+    if (err) {
+      res.send('OOps error');
+    } else {
+      res.send(`The lat is: ${results.latitude} and the long is ${results.longitude}`);
+    }
   });
 });
 
