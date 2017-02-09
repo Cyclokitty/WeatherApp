@@ -41,8 +41,7 @@ hbs.registerHelper('screamIt', (text) => {
 
 app.get('/', (req, res) => {
   res.render('home.hbs', {
-    pageTitle: 'The Weather',
-    welcomeMessage: 'Welcome to my home page.',
+    pageTitle: 'Home Page',
   });
 });
 
@@ -52,20 +51,25 @@ app.post('/', (req, res) => {
     if (err) {
       res.send('OOps error');
     } else {
-      res.send(`The lat is: ${results.latitude} and the long is ${results.longitude}`);
-    }
+    res.render('weather.hbs', {
+      lat: `${results.latitude}`,
+      lon: `${results.longitude}`,
+      city: `${city}`,
+    });
+  }
+    // `The lat is: ${results.latitude} and the long is ${results.longitude}`);
   });
 });
 
 app.get('/about', (req, res) => {
   res.render('about.hbs', {
-    pageTitle: 'About The Weather',
+    pageTitle: 'About page',
   });
 });
 
 app.get('/projects', (req, res) => {
   res.render('projects.hbs', {
-    pageTitle: 'The Projects',
+    pageTitle: 'Projects page',
   });
 });
 

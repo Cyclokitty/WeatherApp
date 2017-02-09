@@ -14,21 +14,25 @@
       <div class="jumbotron">
         <div class="row">
           <div class="col-sm-12">
-            <h1>{{pageTitle}}</h1>
+            <h1>Weather</h1>
           </div>
         </div>
-        <form action='/' method='POST'>
-          <div class='form-group row'>
-            <div class="col-sm-6 offset-sm-3">
-              <input class='form-control' id='inlineFormInputGroup' type='text' name='city' placeholder='Enter name of city' value=''/>
-            </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <h2>For the city of {{city}}</h2>
           </div>
-          <div class="form-group row">
-            <div class="col-sm-6 offset-sm-3">
-              <button type='submit' class='btn btn-outline-success btn-lg btn-block' value='Submit'>Submit</button>
-            </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <h4>The latitude is {{lat}}</h4>
           </div>
-        </form>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <h4>The longitude is {{lon}}</h4>
+          </div>
+        </div>
+
     </div>
   </div>
     {{> footer}}

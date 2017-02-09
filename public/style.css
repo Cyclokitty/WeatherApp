@@ -1,7 +1,18 @@
 body {
-  padding: 25px;
+  margin: 0;
+  padding: 0;
 }
 
 h1 {
   color: #ff0080;
+  text-align: center;
+}
+
+h4 {
+  color: #ff0080;
+  text-align: left;
+}
+
+footer {
+  text-align: center;
 }
