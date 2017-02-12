@@ -2,6 +2,7 @@ const express = require('express');
 const hbs = require('hbs');
 const app = express();
 const fs = require('fs');
+const dotenv = require('dotenv').config();
 const bodyParser = require('body-parser');
 const geocode = require('./geocode');
 const weather = require('./weather');
