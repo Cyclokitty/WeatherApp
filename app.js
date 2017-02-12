@@ -4,6 +4,7 @@ const app = express();
 const fs = require('fs');
 const bodyParser = require('body-parser');
 const geocode = require('./geocode');
+const weather = require('./weather');
 
 const port = process.env.PORT || 3000;
 
@@ -51,11 +52,24 @@ app.post('/', (req, res) => {
     if (err) {
       res.send('OOps error');
     } else {
-    res.render('weather.hbs', {
-      lat: `${results.latitude}`,
-      lon: `${results.longitude}`,
-      city: `${city}`,
-    });
+      weather.getWeather(results.latitude, results.longitude, (err, weatherResults) => {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log(weatherResults);
+          res.render('weather.hbs', {
+            pageTitle: `Weather Results`,
+            lat: `${results.latitude}`,
+            lon: `${results.longitude}`,
+            city: `${city}`,
+            icon: 'http://openweathermap.org/img/w/' + weatherResults.icon + '.png',
+            temp: `${weather.celsius(weatherResults.temperature)}`,
+            summary: `${weatherResults.summary}`,
+            main: `${weatherResults.main}`,
+            humidity: `${weatherResults.humidity}`,
+          });
+        }
+      });
   }
     // `The lat is: ${results.latitude} and the long is ${results.longitude}`);
   });

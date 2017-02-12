@@ -1,15 +1,19 @@
 const request = require('request');
+const dotenv = require('dotenv').config();
 
 const getWeather = (lat, lng, callback) => {
+  let key = process.env.WEATHER_KEY;
   request({
-    url: `https://api.darksky.net/forecast/0f48f14a2478df23f2ea57fa481e7904/${lat},${lng}`,
+    url: `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&APPID=${key}`,
     json: true,
   }, (error, response, body) => {
       if (!error && response.statusCode === 200) {
         callback(undefined, {
-          temperature: body.currently.temperature,
-          summary: body.currently.summary,
-          tomorrow: body.hourly.summary,
+          temperature: body.main.temp,
+          summary: body.weather[0].description,
+          main: body.weather[0].main,
+          icon: body.weather[0].icon,
+          humidity: body.main.humidity,
         });
       } else {
         console.log(`Unable to fetch weather data.`);
@@ -17,6 +21,11 @@ const getWeather = (lat, lng, callback) => {
   });
 };
 
+const celsius = (temp) => {
+  return (temp - 273.15).toFixed(1);
+};
+
 module.exports = {
   getWeather,
+  celsius,
 };

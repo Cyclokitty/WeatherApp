@@ -10,9 +10,12 @@ h1 {
 
 h4 {
   color: #ff0080;
-  text-align: left;
 }
 
 footer {
+  text-align: center;
+}
+
+.weather {
   text-align: center;
 }
