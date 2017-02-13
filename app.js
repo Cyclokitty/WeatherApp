@@ -50,7 +50,9 @@ app.get('/', (req, res) => {
 app.post('/', (req, res) => {
   const city = req.body.city;
   if (city === '') {
-    res.send('You need to enter a city for this to work. Please go back and enter a city in the form. Thanks!');
+    res.render('help.hbs', {
+      pageTitle: 'Something went wrong...',
+    });
   }
   geocode.geocodeAddress(city, (err, results) => {
     if (err) {
