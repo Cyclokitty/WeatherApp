@@ -50,9 +50,7 @@ app.get('/', (req, res) => {
 app.post('/', (req, res) => {
   const city = req.body.city;
   if (city === '') {
-    res.render('help.hbs', {
-      pageTitle: 'Something went wrong...',
-    });
+    res.redirect('/help');
   }
   geocode.geocodeAddress(city, (err, results) => {
     if (err) {
@@ -92,6 +90,13 @@ app.get('/projects', (req, res) => {
     pageTitle: 'Projects page',
   });
 });
+
+app.get('/help', (req, res) => {
+  res.render('help.hbs', {
+    pageTitle: 'help page',
+  });
+});
+
 
 // create a /bad route for bad stuff
   // send back json data with errorMessage()
